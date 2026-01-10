@@ -1,0 +1,6 @@
+@GameCompletionistApp.Api_HostAddress = http://localhost:5043
+
+GET {{GameCompletionistApp.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

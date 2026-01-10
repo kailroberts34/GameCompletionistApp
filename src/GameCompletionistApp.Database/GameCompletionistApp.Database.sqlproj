@@ -3,16 +3,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>GameCompletionist.Database</Name>
+    <Name>GameCompletionistApp.Database</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{66dfed13-0c00-407e-86c4-e6ebae0dec42}</ProjectGuid>
+    <ProjectGuid>{5f3f991c-f43d-4e6c-8b0b-d87af37748cf}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
-    <RootNamespace>GameCompletionist.Database</RootNamespace>
-    <AssemblyName>GameCompletionist.Database</AssemblyName>
+    <RootNamespace>GameCompletionistApp.Database</RootNamespace>
+    <AssemblyName>GameCompletionistApp.Database</AssemblyName>
     <ModelCollation>1033, CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
