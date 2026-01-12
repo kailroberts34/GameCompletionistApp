@@ -1,4 +1,4 @@
-﻿CREATE   PROCEDURE game.GetGamesForUser
+﻿CREATE   PROCEDURE [game].[GetGamesForUser]
 @UserId SMALLINT
 /*
 author: kroberts
@@ -11,6 +11,7 @@ BEGIN
 
 	SELECT
 		G.GameId,
+		GTU.UserId,
 		G.GameName,
 		G.ReleaseYear,
 		P.PlatformName

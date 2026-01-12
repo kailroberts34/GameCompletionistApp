@@ -1,5 +1,6 @@
 using GameCompletionistApp.Api.Data;
 using GameCompletionistApp.Api.Features.Auth;
+using GameCompletionistApp.Api.Features.Games;
 using Microsoft.AspNetCore.Authentication.JwtBearer; // Add this using directive
 using Microsoft.IdentityModel.Tokens; // Add this using directive
 using System.Text; // Add this using directive
@@ -35,6 +36,8 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<AuthRepository>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<JwtService>();
+builder.Services.AddScoped<GamesRepository>();
+builder.Services.AddScoped<GamesService>();
 
 var app = builder.Build();
 
@@ -50,6 +53,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapAuthEndpoints();
+app.MapGamesEndPoints();
 
 app.MapControllers();
 
