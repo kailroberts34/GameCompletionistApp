@@ -1,3 +1,9 @@
+using GameCompletionistApp.Api.Data;
+using GameCompletionistApp.Api.Features.Auth;
+using Microsoft.AspNetCore.Authentication.JwtBearer; // Add this using directive
+using Microsoft.IdentityModel.Tokens; // Add this using directive
+using System.Text; // Add this using directive
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +12,29 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
+
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", options =>
+    {
+        options.TokenValidationParameters = new()
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = "Jwt:GameCompletionistApp",
+            ValidAudience = "Jwt:GameCompletionistAppUsers",
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes("SECRETSECRETSECRETSECRETSECRETSECRET"))
+        };
+    });
+
+builder.Services.AddAuthorization();
+
+builder.Services.AddScoped<AuthRepository>();
+builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<JwtService>();
 
 var app = builder.Build();
 
@@ -18,7 +47,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
+app.MapAuthEndpoints();
 
 app.MapControllers();
 

@@ -56,5 +56,28 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="game\" />
+    <Folder Include="game\Tables\" />
+    <Folder Include="checklist\" />
+    <Folder Include="checklist\Tables\" />
+    <Folder Include="Security\" />
+    <Folder Include="game\Stored Procedures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\User.sql" />
+    <Build Include="game\Tables\GameToUser.sql" />
+    <Build Include="game\Tables\Game.sql" />
+    <Build Include="game\Tables\Platform.sql" />
+    <Build Include="checklist\Tables\UserChecklistProgress.sql" />
+    <Build Include="checklist\Tables\ChecklistItem.sql" />
+    <Build Include="checklist\Tables\ChecklistCategory.sql" />
+    <Build Include="Security\admin.sql" />
+    <Build Include="game\Stored Procedures\InsertUserForAuth.sql" />
+    <Build Include="game\Stored Procedures\GetUserByEmailForAuth.sql" />
+    <Build Include="game\Stored Procedures\GetGamesForUser.sql" />
+    <Build Include="Security\game.sql" />
+    <Build Include="Security\checklist.sql" />
   </ItemGroup>
 </Project>
