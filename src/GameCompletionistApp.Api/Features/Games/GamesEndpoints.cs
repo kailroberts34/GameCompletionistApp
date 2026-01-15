@@ -10,6 +10,7 @@ namespace GameCompletionistApp.Api.Features.Games
         {
             var group = app.MapGroup("/games").WithTags("Games");
             group.MapGet("/user/{UserId}", GetGamesForUserAsync);
+            group.MapPost("/AddGame", AddGameAsync);
             return app;
         }
 
@@ -19,6 +20,14 @@ namespace GameCompletionistApp.Api.Features.Games
         {
             var games = await gamesService.GetGamesForUserAsync(UserId);
             return Results.Ok(games);
+        }
+
+        private static async Task<IResult> AddGameAsync(
+            [FromBody] Data.Models.GamesModels.AddGameRequest request,
+            [FromServices] GamesService gamesService)
+        {
+            await gamesService.AddGameAsync(request);
+            return Results.Ok();
         }
     }
 }

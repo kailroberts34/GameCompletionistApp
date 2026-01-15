@@ -91,3 +91,100 @@ BEGIN
 	INNER JOIN game.GameToUser GTU ON GTU.GameId = G.GameId AND GTU.UserId = @UserId
 END;
 GO
+
+CREATE   PROCEDURE [game].[InsertGamesForUser]
+@GameName VARCHAR(100),
+@Platform VARCHAR(25),
+@ReleaseYear INT
+/*
+author: kroberts
+
+inserts games for user
+
+*/
+AS
+BEGIN
+
+	DECLARE @PlatformId TINYINT;
+	IF NOT EXISTS (SELECT 1 FROM game.[Platform] WHERE PlatformName = @Platform)
+	BEGIN
+		INSERT INTO game.[Platform](
+			PlatformName
+		)
+		VALUES
+		(
+			@Platform
+		)
+		SELECT @PlatformId = SCOPE_IDENTITY();
+	END;
+
+	SELECT @PlatformId = P.PlatformId
+	FROM game.[Platform] P
+	WHERE P.PlatformName = @Platform;
+
+
+	INSERT INTO game.Game
+	(
+		GameName,
+		PlatformId,
+		ReleaseYear
+	)
+	VALUES
+	(
+	@GameName,
+	@PlatformId,
+	@ReleaseYear
+	)
+
+	
+END;
+GO
+
+
+CREATE   PROCEDURE [game].[GetGameByGameNameAndPlatformName]
+@GameName VARCHAR(100),
+@Platform VARCHAR(25)
+/*
+author: kroberts
+
+inserts games for user
+
+*/
+AS
+BEGIN
+
+	SELECT G.GameId
+	FROM game.Game G
+	INNER JOIN game.[Platform] P ON P.PlatformId = G.PlatformId
+	WHERE P.PlatformName = @Platform AND G.GameName = @GameName;
+
+	
+END;
+GO
+
+CREATE   PROCEDURE [game].[AssignGameToUser]
+@GameId INT,
+@UserId SMALLINT
+/*
+author: kroberts
+
+inserts games for user
+
+*/
+AS
+BEGIN
+
+	INSERT INTO game.GameToUser
+	(
+		GameId,
+		UserId
+	)
+	VALUES
+	(
+		@GameId,
+		@UserId
+	)
+
+	
+END;
+GO

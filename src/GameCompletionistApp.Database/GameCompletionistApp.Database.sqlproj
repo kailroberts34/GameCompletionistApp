@@ -79,5 +79,9 @@
     <Build Include="game\Stored Procedures\GetGamesForUser.sql" />
     <Build Include="Security\game.sql" />
     <Build Include="Security\checklist.sql" />
+    <Build Include="checklist\Tables\Goal.sql" />
+    <Build Include="game\Stored Procedures\InsertGamesForUser.sql" />
+    <Build Include="game\Stored Procedures\GetGameByGameNameAndPlatformName.sql" />
+    <Build Include="game\Stored Procedures\AssignGameToUser.sql" />
   </ItemGroup>
 </Project>
