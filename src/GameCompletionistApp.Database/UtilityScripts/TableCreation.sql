@@ -203,3 +203,35 @@ GO
 
 ALTER TABLE dbo.[User] ADD Email VARCHAR(255) NULL;
 GO
+
+CREATE TABLE checklist.Goal(
+
+	GoalId INT NOT NULL IDENTITY(1, 1),
+	DateCreated DATETIME2(2) NOT NULL CONSTRAINT [DF_Checklist_Goal_DateCreated] DEFAULT (SYSDATETIME()),
+	DateUpdated DATETIME2(2) NOT NULL CONSTRAINT [DF_checklist_Goal_DateUpdated] DEFAULT (SYSDATETIME()),
+	GameId INT NOT NULL CONSTRAINT [FK_Checklist_Goal_Game_Game] FOREIGN KEY REFERENCES game.[Game] (GameId),
+	IsCompleted BIT NOT NULL,
+	CONSTRAINT [PK_Checklist_Goal] PRIMARY KEY CLUSTERED (GoalId ASC)
+);
+GO
+
+CREATE TRIGGER checklist.TrGoalDateUpdated ON checklist.Goal AFTER UPDATE
+AS
+/*
+author: kroberts
+
+updates DateUpdated when record is updated
+
+*/
+BEGIN
+	SET NOCOUNT ON;
+
+	UPDATE t
+	SET t.DateUpdated = SYSDATETIME()
+	FROM checklist.Goal t
+	INNER JOIN inserted i ON i.GoalId = t.GoalId;
+END;
+GO
+
+ALTER TABLE checklist.Goal ADD [Description] VARCHAR(100) NOT NULL;
+GO
