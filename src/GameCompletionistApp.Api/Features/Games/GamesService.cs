@@ -11,8 +11,13 @@ namespace GameCompletionistApp.Api.Features.Games
             _gamesRepository = gamesRepository;
         }
 
-        public async Task<GamesForUser[]> GetGamesForUserAsync(int UserId)
+        public async Task<GamesForUser[]?> GetGamesForUserAsync(int UserId)
         {
+            var ExistingUser = await _gamesRepository.GetUserByUserIdAsync(UserId);
+
+            if (!ExistingUser.HasValue)
+                return null;
+
             return await _gamesRepository.GetGamesForUser(UserId);
         }
 

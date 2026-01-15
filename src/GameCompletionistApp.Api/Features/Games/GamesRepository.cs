@@ -50,5 +50,15 @@ namespace GameCompletionistApp.Api.Features.Games
                 new { GameName = GameName, Platform = PlatformName, ReleaseYear = ReleaseYear },
                 commandType: CommandType.StoredProcedure);
         }
+
+        public async Task<int?> GetUserByUserIdAsync(int UserId)
+        {
+            using var connection = await _dbConnectionFactory.CreateConnectionAsync();
+            return await connection.QuerySingleOrDefaultAsync<int?>(
+                "dbo.GetUserByUserId",
+                new { UserId = UserId },
+                commandType: CommandType.StoredProcedure);
+
+        }
     }
 }
