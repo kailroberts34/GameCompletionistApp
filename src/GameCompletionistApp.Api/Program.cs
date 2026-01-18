@@ -33,6 +33,16 @@ builder.Services.AddAuthentication("Bearer")
 
 builder.Services.AddAuthorization();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin", policy =>
+    {
+        policy.WithOrigins("http://localhost:58595/")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddScoped<AuthRepository>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<JwtService>();
@@ -49,6 +59,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("AllowSpecificOrigin");
 
 app.UseAuthentication();
 app.UseAuthorization();
