@@ -20,4 +20,15 @@ public class AuthModels
         public static AuthResults Fail() => new(false, null);
         public static AuthResults Success(User user) => new(true, user);
     }
+
+    public class LoginResponse
+    {
+        [Required]
+        public string Token { get; init; } = string.Empty;
+    }
+
+    public class LogoutResponse 
+    {
+        public string Message { get; set; } = "Logged out successfully.";
+    }
 }
