@@ -64,6 +64,7 @@
     <Folder Include="checklist\Tables\" />
     <Folder Include="Security\" />
     <Folder Include="game\Stored Procedures\" />
+    <Folder Include="dbo\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\User.sql" />
@@ -83,5 +84,6 @@
     <Build Include="game\Stored Procedures\InsertGamesForUser.sql" />
     <Build Include="game\Stored Procedures\GetGameByGameNameAndPlatformName.sql" />
     <Build Include="game\Stored Procedures\AssignGameToUser.sql" />
+    <Build Include="dbo\Stored Procedures\GetUserByUserId.sql" />
   </ItemGroup>
 </Project>
