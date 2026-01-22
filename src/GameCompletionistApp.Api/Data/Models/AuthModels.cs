@@ -25,6 +25,7 @@ public class AuthModels
     {
         [Required]
         public string Token { get; init; } = string.Empty;
+        public int UserId { get; init; }
     }
 
     public class LogoutResponse 

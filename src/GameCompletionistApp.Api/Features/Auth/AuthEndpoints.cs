@@ -34,19 +34,32 @@ namespace GameCompletionistApp.Api.Features.Auth
             }
 
             var token = jwtService.GenerateToken(user);
-            return Results.Ok(new { token });
+
+            var response = new LoginResponse
+            {
+                Token = token,
+                UserId = user.UserId
+            };
+            return Results.Ok(response);
         }
 
-        private static IResult CreateUser(CreateUserRequest request, AuthService authService)
+        private static IResult CreateUser(CreateUserRequest request, AuthService authService, JwtService jwtService)
         {
             try
             {
-                var userid = authService.CreateUserAsync(
+                var user = authService.CreateUserAsync(
                     request.UserName,
                     request.email,
                     request.password).Result;
 
-                return Results.Created($"/auth/users/{userid}", new { userid });
+                var token = jwtService.GenerateToken(user);
+
+                var response = new LoginResponse
+                {
+                    Token = token,
+                    UserId = user.UserId
+                };
+                return Results.Ok(response); ;
             }
             catch (InvalidOperationException ex)
             {
