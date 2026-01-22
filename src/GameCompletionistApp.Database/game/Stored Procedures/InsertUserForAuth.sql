@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE game.InsertUserForAuth
+﻿CREATE PROCEDURE [game].[InsertUserForAuth]
 @UserName VARCHAR(50),
 @Email VARCHAR(255),
 @PasswordHash VARBINARY(64),
@@ -17,4 +17,6 @@ BEGIN
 	VALUES (@UserName, @Email, @PasswordHash, @PasswordSalt, 1);
 
 	SELECT @UserId = SCOPE_IDENTITY();
+
+	SELECT @UserId AS UserId
 END;
