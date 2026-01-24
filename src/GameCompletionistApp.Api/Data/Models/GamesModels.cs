@@ -9,7 +9,8 @@
             public int GameId { get; init; }
             public int UserId { get; init; }
             public string GameName { get; init; } = string.Empty;
-            public string Platform { get; init; } = string.Empty;
+            public int ReleaseYear { get; init; }
+            public string PlatformName { get; init; } = string.Empty;
         }
 
         public class GameDetails

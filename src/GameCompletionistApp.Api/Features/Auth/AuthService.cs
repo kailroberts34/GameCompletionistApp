@@ -46,7 +46,7 @@ namespace GameCompletionistApp.Api.Features.Auth
             return isValid ? user : null;
         }
 
-        public async Task<int> CreateUserAsync(string UserName, string Email, string Password)
+        public async Task<User> CreateUserAsync(string UserName, string Email, string Password)
         {
             var existing = await _authRepository.GetByEmailAsync(Email);
             if (existing != null)
@@ -56,12 +56,23 @@ namespace GameCompletionistApp.Api.Features.Auth
 
             var (hash, salt) = HashPassword(Password);
 
-            return await _authRepository.CreateUserAsync(
+            var userId = await _authRepository.CreateUserAsync(
                 UserName,
                 Email,
                 hash,
                 salt
-                );
+            );
+
+            var createdUser = new User
+            {
+                UserId = userId,
+                Username = UserName,
+                Email = Email,
+                PasswordHash = hash,
+                PasswordSalt = salt
+            };
+
+            return (createdUser);
         }
     }
 }
