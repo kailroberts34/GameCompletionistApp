@@ -14,9 +14,9 @@ namespace GameCompletionistApp.Api.Features.Auth
 
             group.MapPost("register", CreateUser);
 
-            group.MapGet("/me", me).RequireAuthorization();
+            group.MapGet("me", me).RequireAuthorization();
 
-            group.MapPost("/logout", () => Results.Ok(new LogoutResponse()));
+            group.MapPost("logout", () => Results.Ok(new LogoutResponse()));
 
             return app;
         }
