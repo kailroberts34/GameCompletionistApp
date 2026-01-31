@@ -2,7 +2,7 @@
 {
     public class GamesModels
     {
-        public record AddGameRequest(int UserId, string GameName, string Platform, int ReleaseYear);
+        public record AddGameRequest(int UserId, string GameName, string PlatformName, int ReleaseYear);
 
         public class GamesForUser
         {

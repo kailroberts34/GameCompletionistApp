@@ -10,7 +10,7 @@ namespace GameCompletionistApp.Api.Features.Games
         {
             var group = app.MapGroup("/games").WithTags("Games");
             group.MapGet("/user/{UserId}", GetGamesForUserAsync);
-            group.MapPost("/AddGame", AddGameAsync);
+            group.MapPost("", AddGameAsync);
             return app;
         }
 
@@ -39,7 +39,7 @@ namespace GameCompletionistApp.Api.Features.Games
         {
             if (request == null || 
                 string.IsNullOrWhiteSpace(request.GameName) ||
-                string.IsNullOrWhiteSpace(request.Platform) ||
+                string.IsNullOrWhiteSpace(request.PlatformName) ||
                 request.ReleaseYear <= 0)
             {
                 return Results.BadRequest("Invalid game data.");
