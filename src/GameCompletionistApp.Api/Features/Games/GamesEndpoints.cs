@@ -11,12 +11,13 @@ namespace GameCompletionistApp.Api.Features.Games
             var group = app.MapGroup("/games").WithTags("Games");
             group.MapGet("/user/{UserId}", GetGamesForUserAsync);
             group.MapPost("", AddGameAsync);
+            group.MapPost("/delete", DeleteGameAsync);
             return app;
         }
 
         private static async Task<IResult> GetGamesForUserAsync(
             int UserId,
-            [FromServices]GamesService gamesService)
+            [FromServices] GamesService gamesService)
         {
             try
             {
@@ -37,7 +38,7 @@ namespace GameCompletionistApp.Api.Features.Games
             [FromBody] Data.Models.GamesModels.AddGameRequest request,
             [FromServices] GamesService gamesService)
         {
-            if (request == null || 
+            if (request == null ||
                 string.IsNullOrWhiteSpace(request.GameName) ||
                 string.IsNullOrWhiteSpace(request.PlatformName) ||
                 request.ReleaseYear <= 0)
@@ -50,9 +51,28 @@ namespace GameCompletionistApp.Api.Features.Games
                 await gamesService.AddGameAsync(request);
                 return Results.Ok();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Results.Problem("An unexpected error occured.", statusCode: 500);
+            }
+        }
+
+        private static async Task<IResult> DeleteGameAsync(
+            [FromBody] Data.Models.GamesModels.DeleteGameRequest request,
+            [FromServices] GamesService gamesService)
+        {
+            if (request == null || request.UserId <= 0 || request.GameId <= 0)
+            {
+                return Results.BadRequest("Invalid delete request.");
+            }
+            try
+            {
+                await gamesService.DeleteGameAsync(request);
+                return Results.Ok();
+            }
+            catch (Exception ex)
+            {
+                return Results.Problem("Can't delete game.", statusCode: 500);
             }
         }
     }

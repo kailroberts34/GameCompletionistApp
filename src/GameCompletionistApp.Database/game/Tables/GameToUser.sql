@@ -10,6 +10,8 @@
 );
 
 
+
+
 GO
 
 CREATE TRIGGER game.TrGameToUserDateUpdated ON game.GameToUser AFTER UPDATE
@@ -28,3 +30,7 @@ BEGIN
 	FROM game.GameToUser t
 	INNER JOIN inserted i ON i.GameToUserId = t.GameToUserId;
 END;
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [UQ_Game_GameToUser_UserId_GameId]
+    ON [game].[GameToUser]([UserId] ASC, [GameId] ASC);
+

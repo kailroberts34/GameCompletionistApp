@@ -60,5 +60,14 @@ namespace GameCompletionistApp.Api.Features.Games
                 commandType: CommandType.StoredProcedure);
 
         }
+
+        public async Task DeleteGameForUserAsync(int UserId, int GameId)
+        {
+            using var connection = await _dbConnectionFactory.CreateConnectionAsync();
+            await connection.ExecuteAsync(
+                "game.DeleteGameForUser",
+                new { UserId = UserId, GameId = GameId },
+                commandType: CommandType.StoredProcedure);
+        }
     }
 }
