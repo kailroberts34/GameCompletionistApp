@@ -4,6 +4,8 @@
     {
         public record AddGameRequest(int UserId, string GameName, string PlatformName, int ReleaseYear);
 
+        public record DeleteGameRequest(int UserId, int GameId);
+
         public class GamesForUser
         {
             public int GameId { get; init; }

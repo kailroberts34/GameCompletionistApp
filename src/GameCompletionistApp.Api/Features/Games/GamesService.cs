@@ -39,5 +39,10 @@ namespace GameCompletionistApp.Api.Features.Games
 
             await _gamesRepository.AssignGameToUserAsync(request.UserId, gameId);
         }
+
+        public async Task DeleteGameAsync(DeleteGameRequest request)
+        {
+            await _gamesRepository.DeleteGameForUserAsync(request.UserId, request.GameId);
+        }
     }
 }

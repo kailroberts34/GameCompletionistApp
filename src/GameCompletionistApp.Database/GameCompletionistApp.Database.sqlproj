@@ -85,5 +85,6 @@
     <Build Include="game\Stored Procedures\GetGameByGameNameAndPlatformName.sql" />
     <Build Include="game\Stored Procedures\AssignGameToUser.sql" />
     <Build Include="dbo\Stored Procedures\GetUserByUserId.sql" />
+    <Build Include="game\Stored Procedures\DeleteGameForUser.sql" />
   </ItemGroup>
 </Project>
